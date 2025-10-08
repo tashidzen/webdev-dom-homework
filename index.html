@@ -66,6 +66,66 @@
   <script>
     "use strict";
     // Код писать здесь
+    const enteredName = document.querySelector('.add-form-name');
+    const enteredComment = document.querySelector('.add-form-text');
+    const writeButton = document.querySelector('.add-form-button');
+    let currentDate = new Date();
+    let options = {        
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'};
+
+    function formatDate(date) {
+      return date.toLocaleString('ru-RU', options).replace(',', '');
+    }
+
+    enteredName.addEventListener('change',() => {
+      console.log(enteredName.value);
+    });
+    enteredComment.addEventListener('change',() => {
+      console.log(enteredComment.value);
+    });
+
+    const listElement = document.querySelector('.comments');
+
+    writeButton.addEventListener('click', () => {
+      const name = enteredName.value;
+      const comment = enteredComment.value;
+
+      if (!name || !comment) {
+        alert('Пожалуйста, заполните все поля');
+        return;
+      }
+
+      const template = document.createElement('li');
+      template.className = "comment";
+      template.innerHTML =
+      `
+      <div class="comment-header">
+        <div>${name}</div>
+        <div>${formatDate(currentDate)}</div>
+      </div>
+      <div class="comment-body">
+        <div class="comment-text">
+          ${comment}
+        </div>
+      </div>
+      <div class="comment-footer">
+        <div class="likes">
+           <span class="likes-counter">0</span>
+          <button class="like-button"></button>
+        </div>
+      </div>
+      `;
+      
+      listElement.appendChild(template);
+
+      enteredName.value = '';
+      enteredComment.value = '';
+    });
+
     console.log("It works!");
   </script>
 </html>
