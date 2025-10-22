@@ -49,11 +49,29 @@
         alert('Пожалуйста, заполните все поля');
         return;
       }
+        
+      const verifiedName = name
+        .replaceAll('"', '&quot;')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll("'", '&#39;')
+        .replaceAll('`', '&#96;')
+        .replaceAll('/', '&#47;');
+
+      const verifiedComment = comment
+        .replaceAll('"', '&quot;')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll("'", '&#39;')
+        .replaceAll('`', '&#96;')
+        .replaceAll('/', '&#47;');
 
       const newComment = {
-        userName: name,
+        userName: verifiedName,
         date: formatDate(currentDate),
-        commentText: comment,
+        commentText: verifiedComment,
         count_likes: 0,
         status: false
       };
@@ -94,7 +112,7 @@
         commentElement.innerHTML =
           `
         <div class="comment-header">
-          <div>${comment.userName}</div>
+          <div class="userName">${comment.userName}</div>
           <div>${comment.date}</div>
         </div>
         <div class="comment-body">
@@ -119,7 +137,9 @@
       const likeStatus = document.querySelectorAll('.like-button');
 
       for (const likeStat of likeStatus) {
-        likeStat.addEventListener('click', () => {
+        likeStat.addEventListener('click', (event) => {
+          event.stopPropagation();
+
           const index = parseInt(likeStat.dataset.index);
 
           if (comments[index].status === false) {
@@ -138,6 +158,16 @@
     };
 
     renderComments(comments);
+
+    listElement.addEventListener('click', (event) => {
+      const clickedComment = event.target.closest('.comment');
+      if (clickedComment) {
+        const textName = clickedComment.querySelector('.userName');
+        enteredName.value = '> ' + textName.innerText;
+        const commentText = clickedComment.querySelector('.comment-text');
+        enteredComment.value = '> ' + commentText.innerText;
+        }
+    });
   </script>
 </body>
 </html>
