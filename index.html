@@ -1,173 +1,34 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+    <head>
+        <title>Проект "Комменты"</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="styles.css" />
+    </head>
 
-  <head>
-    <title>Проект "Комменты"</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-
-  <body>
-    <div class="container">
-      <ul class="comments">
-        <!-- Отрисовка комментариев через JS -->
-      </ul>
-      <div class="add-form">
-        <input type="text" class="add-form-name" placeholder="Введите ваше имя" />
-        <textarea type="textarea" class="add-form-text" placeholder="Введите ваш коментарий" rows="4"></textarea>
-        <div class="add-form-row">
-          <button class="add-form-button">Написать</button>
+    <body>
+        <div class="container">
+            <ul class="comments">
+                <!-- Отрисовка комментариев через JS -->
+            </ul>
+            <div class="add-form">
+                <input
+                    type="text"
+                    class="add-form-name"
+                    placeholder="Введите ваше имя"
+                />
+                <textarea
+                    type="textarea"
+                    class="add-form-text"
+                    placeholder="Введите ваш коментарий"
+                    rows="4"
+                ></textarea>
+                <div class="add-form-row">
+                    <button class="add-form-button">Написать</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <script>
-      "use strict";
-      const enteredName = document.querySelector('.add-form-name');
-      const enteredComment = document.querySelector('.add-form-text');
-      const writeButton = document.querySelector('.add-form-button');
-      let currentDate = new Date();
-      let options = {
-        day: '2-digit',
-        month: '2-digit',
-        year: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit'
-      };
-
-      function formatDate(date) {
-        return date.toLocaleString('ru-RU', options).replace(',', '');
-      }
-
-      const listElement = document.querySelector('.comments');
-
-      writeButton.addEventListener('click', () => {
-        const name = enteredName.value;
-        const comment = enteredComment.value;
-
-        if (!name || !comment) {
-          alert('Пожалуйста, заполните все поля');
-          return;
-        }
-          
-        const verifiedName = name
-          .replaceAll('"', '&quot;')
-          .replaceAll('&', '&amp;')
-          .replaceAll('<', '&lt;')
-          .replaceAll('>', '&gt;')
-          .replaceAll("'", '&#39;')
-          .replaceAll('`', '&#96;')
-          .replaceAll('/', '&#47;');
-
-        const verifiedComment = comment
-          .replaceAll('"', '&quot;')
-          .replaceAll('&', '&amp;')
-          .replaceAll('<', '&lt;')
-          .replaceAll('>', '&gt;')
-          .replaceAll("'", '&#39;')
-          .replaceAll('`', '&#96;')
-          .replaceAll('/', '&#47;');
-
-        const newComment = {
-          userName: verifiedName,
-          date: formatDate(currentDate),
-          commentText: verifiedComment,
-          count_likes: 0,
-          status: false
-        };
-
-        comments.push(newComment);
-        renderComments(comments);
-
-        enteredName.value = '';
-        enteredComment.value = '';
-      });
-
-      const comments = [
-        {
-          userName: "Глеб Фокин",
-          date: "12.02.22 12:18",
-          commentText: "Это будет первый комментарий на этой странице",
-          count_likes: 3,
-          status: false
-        },
-        {
-          userName: "Варвара Н.",
-          date: "13.02.22 19:22",
-          commentText: "Мне нравится как оформлена эта страница! ❤",
-          count_likes: 75,
-          status: true
-        }
-      ];
-
-      function renderComments(comment) {
-        listElement.innerHTML = '';
-
-        comments.forEach((comment, index) => {
-          const likeClass = comment.status ? 'like-button -active-like' : 'like-button';
-
-          const commentElement = document.createElement('li');
-          commentElement.className = "comment";
-
-          commentElement.innerHTML =
-            `
-          <div class="comment-header">
-            <div class="userName">${comment.userName}</div>
-            <div>${comment.date}</div>
-          </div>
-          <div class="comment-body">
-            <div class="comment-text">
-              ${comment.commentText}
-            </div>
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">${comment.count_likes}</span>
-              <button class="${likeClass}" data-index="${index}"></button>
-            </div>
-          </div>
-          `;
-
-          listElement.appendChild(commentElement);
-        });
-        initLikes();
-      };
-
-      const initLikes = () => {
-        const likeStatus = document.querySelectorAll('.like-button');
-
-        for (const likeStat of likeStatus) {
-          likeStat.addEventListener('click', (event) => {
-            event.stopPropagation();
-
-            const index = parseInt(likeStat.dataset.index);
-
-            if (comments[index].status === false) {
-              console.log('Ставим лайк');
-              comments[index].status = true;
-              comments[index].count_likes += 1;
-            } else {
-              console.log('Убираем лайк');
-              comments[index].status = false;
-              comments[index].count_likes -= 1;
-            }
-
-            renderComments(comments);
-          })
-        }
-      };
-
-      renderComments(comments);
-
-      listElement.addEventListener('click', (event) => {
-        const clickedComment = event.target.closest('.comment');
-        if (clickedComment) {
-          const textName = clickedComment.querySelector('.userName');
-          enteredName.value = '> ' + textName.innerText;
-          const commentText = clickedComment.querySelector('.comment-text');
-          enteredComment.value = '> ' + commentText.innerText;
-          }
-      });
-    </script>
-  </body>
+        <script type="module" src="./script.js"></script>
+    </body>
 </html>
