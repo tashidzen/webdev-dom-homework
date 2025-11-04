@@ -7,9 +7,9 @@ export function answerClick() {
         const clickedComment = event.target.closest('.comment');
         if (clickedComment) {
             const textName = clickedComment.querySelector('.userName');
-            enteredName.value = '> ' + textName.innerText;
             const commentText = clickedComment.querySelector('.comment-text');
-            enteredComment.value = '> ' + commentText.innerText;
+            enteredComment.value =
+                '> ' + textName.innerText + `\n` + '> ' + commentText.innerText;
         }
     });
 }

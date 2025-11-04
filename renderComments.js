@@ -19,7 +19,7 @@ export function renderComments(comments) {
           </div>
           <div class="comment-body">
             <div class="comment-text">
-              ${comment.commentText}
+              ${comment.commentText.replace(/\n/g, '<br>')}
             </div>
           </div>
           <div class="comment-footer">

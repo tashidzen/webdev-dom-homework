@@ -4,10 +4,9 @@ import { renderComments } from './renderComments.js';
 import { formatDate } from './formatDate.js';
 import { replace } from './replaceAll.js';
 
-export const writeButton = document.querySelector('.add-form-button');
-let currentDate = new Date();
-
 export function writeFunction() {
+    const writeButton = document.querySelector('.add-form-button');
+    let currentDate = new Date();
     writeButton.addEventListener('click', () => {
         const name = enteredName.value;
         const comment = enteredComment.value;
