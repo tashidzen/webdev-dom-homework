@@ -1,7 +1,7 @@
 import { initLikes } from './initLikes.js';
-import { listElement } from './answer.js';
 
 export function renderComments(comments) {
+    const listElement = document.querySelector('.comments');
     listElement.innerHTML = '';
 
     comments.forEach((comment, index) => {

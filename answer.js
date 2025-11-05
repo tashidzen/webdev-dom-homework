@@ -1,8 +1,7 @@
-export const listElement = document.querySelector('.comments');
-export const enteredName = document.querySelector('.add-form-name');
-export const enteredComment = document.querySelector('.add-form-text');
-
 export function answerClick() {
+    const listElement = document.querySelector('.comments');
+    const enteredComment = document.querySelector('.add-form-text');
+
     listElement.addEventListener('click', (event) => {
         const clickedComment = event.target.closest('.comment');
         if (clickedComment) {
