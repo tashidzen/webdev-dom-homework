@@ -1,4 +1,5 @@
 import { initLikes } from './initLikes.js';
+import { formatDate } from './formatDate.js';
 
 export function renderComments(comments) {
     const listElement = document.querySelector('.comments');
@@ -15,7 +16,7 @@ export function renderComments(comments) {
         commentElement.innerHTML = `
           <div class="comment-header">
             <div class="userName">${comment.author.name}</div>
-            <div>${comment.date}</div>
+            <div>${formatDate(comment.date)}</div>
           </div>
           <div class="comment-body">
             <div class="comment-text">
