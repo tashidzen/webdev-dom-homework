@@ -1,4 +1,6 @@
-export function formatDate(date) {
+export function formatDate(dateString) {
+    const date = new Date(dateString);
+
     let options = {
         day: '2-digit',
         month: '2-digit',

@@ -1,18 +1,10 @@
-import { renderComments } from './renderComments.js';
-import { updateComments } from './comments.js';
-import { answerClick } from './answer.js';
-import { writeFunction } from './writeFunction.js';
+import { answerClick } from './modules/answer.js';
+import { writeFunction } from './modules/writeFunction.js';
+import { fetchFunc } from './modules/fetchFunc.js';
 
 ('use strict');
 
-fetch('https://wedev-api.sky.pro/api/v1/natalya-gromova/comments')
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => {
-        updateComments(data.comments);
-        renderComments(data.comments);
-    });
+fetchFunc(true);
 
 writeFunction();
 answerClick();
