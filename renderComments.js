@@ -5,7 +5,7 @@ export function renderComments(comments) {
     listElement.innerHTML = '';
 
     comments.forEach((comment, index) => {
-        const likeClass = comment.status
+        const isLiked = comment.isLiked
             ? 'like-button -active-like'
             : 'like-button';
 
@@ -14,18 +14,18 @@ export function renderComments(comments) {
 
         commentElement.innerHTML = `
           <div class="comment-header">
-            <div class="userName">${comment.userName}</div>
+            <div class="userName">${comment.author.name}</div>
             <div>${comment.date}</div>
           </div>
           <div class="comment-body">
             <div class="comment-text">
-              ${comment.commentText.replace(/\n/g, '<br>')}
+              ${comment.text}
             </div>
           </div>
           <div class="comment-footer">
             <div class="likes">
-              <span class="likes-counter">${comment.count_likes}</span>
-              <button class="${likeClass}" data-index="${index}"></button>
+              <span class="likes-counter">${comment.likes}</span>
+              <button class="${isLiked}" data-index="${index}"></button>
             </div>
           </div>
           `;
